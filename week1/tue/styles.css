@@ -1,0 +1,8 @@
+body {
+    background-color: yellow;
+    font-style: italic;
+}
+
+ul :nth-child(3) {
+    background-color: green;
+}

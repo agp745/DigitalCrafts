@@ -1,0 +1,42 @@
+body {
+    margin-right: 2rem;
+}
+
+main {
+    margin-left: 3rem;
+}
+
+nav {
+    margin-bottom: 2rem;
+    display: flex;
+    border-radius: 1rem
+}
+
+.btn {
+    background-color: #006dcc;
+}
+
+.card-big {
+    background-color: hsl(0, 0%, 90%);
+    border: none;
+}
+
+.card-title-big {
+    font-size: 4rem;
+}
+
+.card-text-big {
+    font-size: 1.5rem;
+}
+
+.small-card {
+    margin-top: 2rem;
+    width: 100%;
+    border: 0;
+    background-color: blue;
+}
+
+.card-title-small {
+    color: #08c
+}
+    

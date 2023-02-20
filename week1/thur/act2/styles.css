@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
+
+.blue {
+    background-color: lightskyblue;
+    height: 10rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.white {
+    background-color: white;
+    display: flex;
+    height: 10rem;
+    justify-content: space-around;
+}
+
+.pink {
+    display: flex;
+    flex-direction: column;
+    background-color: pink;
+    width: 10rem;
+}
+
+.yellow {
+    background-color: yellow;
+    height: 2rem;
+    margin: .5rem 1rem 1rem 1rem;
+}
+
