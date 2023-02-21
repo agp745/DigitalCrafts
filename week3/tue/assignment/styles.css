@@ -1,0 +1,91 @@
+@media (min-width: 320px) and (max-width: 750px) {
+    
+}
+
+body {
+    margin: 0;
+    font-family: 'Merriweather', serif;
+    background-color: hsl(138, 33%, 85%);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: hsl(0, 0%, 85%);
+    border-bottom: 2px solid;
+}
+
+.logo {
+    display: flex
+}
+
+.restaraunt {
+    margin-top: 1.2rem;
+    font-size: 2rem;
+}
+
+
+.logoImage {
+    width: 5rem;
+}
+
+
+.filter-section {
+    display: flex;
+    justify-content: right;
+    gap: 1rem;
+    margin-top: 1.7rem;
+    margin-right: 1rem;
+}
+
+.wrapper {
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menuTitle {
+    margin-bottom: -.5rem;
+}
+
+.menuWrapper {
+    margin: 0 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+ul {
+    padding: 0;
+}
+
+.courseTitle {
+    font-size: 1.5rem;
+    color: hsl(0, 0%, 25%);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid;
+    border-color: hsl(0, 0%, 50%)
+}
+
+.item {
+    display: flex;
+    gap: 1rem;
+    margin: 0 1rem 2rem 1rem;
+}
+
+.tnd {
+    display: flex;
+    flex-direction: column;
+}
+
+.dish-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.description {
+    font-style: italic;
+}
+
+.image {
+    width: 10rem;
+}

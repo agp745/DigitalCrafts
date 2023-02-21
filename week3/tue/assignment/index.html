@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Assignment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <section class="logo">
+            <img src="images/logo.png" alt="" class="logoImage">
+            <div class="restaraunt">Lorem Ipsum bar & grill</div>
+        </section>
+        <section class="filter-section">
+            <div class="checkbox">
+                <input type="checkbox" class="checkbox" id="startersButton" checked="true">
+                <label for="startersMenu">Starters</label>
+            </div>
+        
+            <div class="checkbox">
+                <input type="checkbox" class="checkbox" id="entreesButton" checked="true">
+                <label for="entreesMenu">Entrees</label>
+            </div>  
+
+            <div class="checkbox">
+                <input type="checkbox" class="checkbox" id="dessertsButton" checked="true">
+                <label for="dessertsMenu">Desserts</label>
+            </div>  
+        </section>
+    </nav>
+
+    <div class="wrapper">
+        <h1 class="menuTitle">Menu</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, recusandae eveniet numquam alias corrupti beatae commodi omnis a dolor fuga exercitationem, optio minus odio quas adipisci porro perspiciatis, eligendi laboriosam.</p>
+
+        <menu class="menuWrapper">
+            <section class="courseWrapper">
+                <ul class="course" id="starters">
+                    <div class="courseTitle">Starters</div>
+                </ul>
+            </section>
+
+            <section class="courseWrapper">
+                <ul class="course" id="entrees">
+                    <div class="courseTitle">Entrees</div>
+                </ul>
+            </section>
+
+            <section class="courseWrapper">
+                <ul class="course" id="desserts">
+                    <div class="courseTitle">Desserts</div>
+                </ul>
+            </section>
+        </menu>
+    </div>
+
+    <script src="dishes.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
