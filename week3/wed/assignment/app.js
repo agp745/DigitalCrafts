@@ -3,8 +3,12 @@ const articles = news.articles
 const dropdown = document.querySelector('#sources')
 
 const sourcesArr = sources.sources
-//const validSources = sourcesArr.filter((valid))
-const sourceNames = sourcesArr.map((source) => {
+const sourcesIds = sourcesArr.map((source) => source.id)
+const newsSourceId = articles.map((article) => article.source.id)
+const matchedIds = sourcesIds.filter((ids) => newsSourceId.includes(ids))
+const filteredSources = sourcesArr.filter((source) => matchedIds.includes(source.id))
+
+const sourceNames = filteredSources.map((source) => {
     return `<option>${source.name}</option>`
 })  
 dropdown.innerHTML += sourceNames
@@ -40,6 +44,3 @@ function filterSources(){
 generateNews(articles);
 
 dropdown.addEventListener('change', filterSources);
-
-
-//id same in both sources.js and news.js
