@@ -7,32 +7,16 @@ const startersButton = document.querySelector('#startersButton')
 const entreesButton = document.querySelector('#entreesButton')
 const dessertsButton = document.querySelector('#dessertsButton')
 
-
-startersButton.addEventListener('change', function() {
+function isChecked(menu) {
     if(this.checked){
-        startersMenu.setAttribute('style', 'display: block')
+        menu.style.display = "block"
     } else {
-        startersMenu.setAttribute('style', 'display: none')
+        menu.style.display = "none"
     }
-})
-
-entreesButton.addEventListener('change', function() {
-    if(this.checked){
-        entreesMenu.setAttribute('style', 'display: block')
-    } else {
-        entreesMenu.setAttribute('style', 'display: none')
-    }
-})
-
-dessertsButton.addEventListener('change', function() {
-     if(this.checked){
-        dessertsMenu.setAttribute('style', 'display: block')
-    } else {
-        dessertsMenu.setAttribute('style', 'display: none')
-    }
-})
-
-
+}
+startersButton.addEventListener('change', () => isChecked.call(startersButton, startersMenu))
+entreesButton.addEventListener('change', () => isChecked.call(entreesButton, entreesMenu))
+dessertsButton.addEventListener('change', () => isChecked.call(dessertsButton, dessertsMenu))
 
 const startersDishes = dishes.filter((dishes) => dishes.course === "Starters")
 const starter = startersDishes.map((dish) => {
@@ -50,7 +34,6 @@ const starter = startersDishes.map((dish) => {
 startersMenu.innerHTML += starter.join('')
 
 const entreesDishes = dishes.filter((dishes) => dishes.course === "Entrees")
-console.log(entreesDishes)
 const entree = entreesDishes.map((dish) => {
     return `
     <div class="item">
