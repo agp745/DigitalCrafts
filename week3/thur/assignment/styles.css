@@ -10,11 +10,13 @@ body {
 
 .addMovie {
     color: grey;
-    position: sticky;
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: space-around;
     top: 0px;
-    padding-bottom: .5rem;
-    border-bottom: 2px solid black;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem 0;
+    border: 2px solid black;
+
 }
 
 .movieList {
@@ -24,12 +26,19 @@ body {
 }
 
 .movieCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--dark-blue);
     padding: 2rem;
     text-align: center;
     border: 3px solid var(--dark-dark);
 }
 
+.movieTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
 
 .movieYear {
     font-style: italic;

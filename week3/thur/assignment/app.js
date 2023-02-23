@@ -4,7 +4,7 @@ const newPosterURL = document.querySelector('#posterURL')
 const addButton = document.querySelector('#addButton')
 const movieList = document.querySelector('.movieList')
 
-const moviesArr = movies.Search
+let moviesArr = movies.Search
 function generateMovies() {
     movieList.innerHTML = ''
 
@@ -14,16 +14,11 @@ function generateMovies() {
                 <div class="movieTitle">${movie.Title}</div>
                 <div class="movieYear">${movie.Year}</div>
                 <img class="posterURL" src="${movie.Poster}">
-                <button id="deleteButton">Delete</button>
+                <button onclick="deleteMovie('${movie.Title}')" id="deleteButton">Delete</button>
             </section>
         `
     })
     movieList.innerHTML += movieCard.join('')
-
-    const deleteButton = document.querySelectorAll('#deleteButton')
-    deleteButton.forEach((button) => {
-        button.addEventListener('click', deleteMovie)
-    })
 }
 
 function addMovie() {
@@ -32,14 +27,15 @@ function addMovie() {
         Year: `${newMovieYear.value}`,
         Poster: `${newPosterURL.value}`
     }
-    movies.Search.push(newMovie)
+    moviesArr.unshift(newMovie)
 
     generateMovies()
 }
 
-function deleteMovie() {
-    let currentCard = this.parentNode
-    currentCard.style.display = 'none'
+function deleteMovie(movie) {
+    let filteredMovies = moviesArr.filter((item) => (item.Title !== movie))
+    moviesArr = filteredMovies
+    generateMovies()
 }
 
 generateMovies()
