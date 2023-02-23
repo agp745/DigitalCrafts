@@ -1,0 +1,3 @@
+## Practice ideas
+
+    * slot machine
