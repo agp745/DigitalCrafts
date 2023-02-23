@@ -23,8 +23,8 @@ function generateNews(filteredArticles){
             <h1 class="title">${article.title}</h1>
             <img src="${article.urlToImage}" class="articleImage">
             <p class="description">${article.description}</p>
-            <div class="articleURL">${article.url}</div>
-            <p class="published">${article.publishedAt}</p>
+            <a href="${article.url}" target="_blank"><div class="articleURL">${article.url}</div></a>
+            <p class="published"><span class="pub">published on:</span> ${article.publishedAt}</p>
         </section>
         `
     })
