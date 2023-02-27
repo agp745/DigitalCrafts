@@ -1,7 +1,14 @@
+const input = document.querySelector('#input')
+const button = document.querySelector('button')
 const list = document.querySelector('.list')
 const card = document.querySelector('.card')
 
-function generateList() {
+function searchMovie() {
+    let movieTitle = input.value 
+    generateList(movieTitle)
+}
+
+function generateList(title) {
     const request = new XMLHttpRequest()
 
     request.addEventListener('load', function() {
@@ -17,9 +24,13 @@ function generateList() {
             </div>
             `
         })
-        list.innerHTML += movie
+        list.innerHTML = ''
+        card.innerHTML = ''
+        list.innerHTML += movie.join("")
     })
-    request.open('GET', 'https://www.omdbapi.com/?s=justice+league&apikey=445a3d95')
+    const movieTitle = title
+
+    request.open('GET', `https://www.omdbapi.com/?s=${movieTitle}&apikey=445a3d95`)
     request.send()
 }
 
@@ -28,7 +39,7 @@ function generateCard(imdbID) {
 
     request.addEventListener('load', function() {
         const parsed = JSON.parse(this.response)
-        
+
         const movie = `
         <div class="bigCard">
             <div class="main">
@@ -50,7 +61,4 @@ function generateCard(imdbID) {
     request.send()
 }
 
-generateList()
-
-
-
+button.addEventListener('click', searchMovie)
