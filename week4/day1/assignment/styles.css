@@ -1,0 +1,24 @@
+.navbar {
+    margin-bottom: 1rem;
+}
+
+
+.list {
+    display: flex;
+}
+
+.poster {
+    max-width: 10rem;
+}
+
+.bigCard {
+    display: flex;
+    gap: 2rem
+}
+
+.info {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+}
+
+
