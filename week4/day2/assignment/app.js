@@ -48,6 +48,9 @@ function createOrder() {
     }
     request.setRequestHeader('Content-Type', 'application/json')
     request.send(JSON.stringify(body))
+
+    allOrders.innerHTML = ''
+    showAllOrders()
 }
 
 function getByEmail() {
@@ -75,10 +78,6 @@ function getByEmail() {
 
 function deleteByEmail() {
     const request = new XMLHttpRequest()
-
-    request.addEventListener('load', function(){
-        console.log(this.response)
-    })
 
     const userEmail = deleteInput.value
 
