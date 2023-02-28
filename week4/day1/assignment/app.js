@@ -17,7 +17,7 @@ function generateList(title) {
         let movie = moviesArr.map((n) => {
             return `
             <div class="movieCard">
-                <a onclick="generateCard('${n.imdbID}')">
+                <a onmouseover="generateCard('${n.imdbID}')">
                 <img src="${n.Poster}" class="poster">
                 <p class="movieTitle">${n.Title}</p>
                 </a>
@@ -50,7 +50,7 @@ function generateCard(imdbID) {
                 <p>Year: ${parsed.Year}</p>
                 <p>Rated: ${parsed.Rated}</p>
                 <p>Released: ${parsed.Released}</p>
-                <p>${parsed.Director}</p>
+                <p>Director: ${parsed.Director}</p>
             </div>
         </div>
         `;
