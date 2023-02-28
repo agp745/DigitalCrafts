@@ -57,12 +57,14 @@ function getByEmail() {
         const parsed = JSON.parse(this.response)
         console.log(parsed)
         const oneOrder = `
+            <section class="dude">
             <h1>${parsed.email}'s order</h1>
             <div>${parsed.type}</div>
             <div>${parsed.size}</div>
             <div>${parsed.price}</div>
+            </section>
         `
-        emailOrder.innerHTML += oneOrder
+        emailOrder.innerHTML = oneOrder
     })
     
     const userEmail = searchInput.value
