@@ -14,7 +14,7 @@ function showWeather(position) {
         <h1 class="city">${info.name}</h1>
         <div class="min">Min Temp: ${info.main.temp_max}F</div>
         <div class="max">Max Temp: ${info.main.temp_max}F</div>
-        <div class="pressure">Pressure: ${info.main.pressure}</div>
+        <div class="pressure">Pressure: ${info.main.pressure}psi</div>
     `
     forecast.innerHTML += currWeather
     })
@@ -32,7 +32,7 @@ function citySearched(){
         <h1 class="city">${info.name}</h1>
         <div class="min">Min Temp: ${info.main.temp_max}F</div>
         <div class="max">Max Temp: ${info.main.temp_max}F</div>
-        <div class="pressure">Pressure: ${info.main.pressure}</div>
+        <div class="pressure">Pressure: ${info.main.pressure}psi</div>
     `
     searchedForecast.innerHTML += currWeather
     })
