@@ -1,0 +1,27 @@
+body {
+    font-family: monospace;
+    background-color: hsl(208, 100%, 95%);
+    font-size: 18px;
+}
+
+.pageTitle {
+    text-align: center;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.newsfeed {
+    margin: 2rem;
+}
+
+.wrapper {
+    margin: 1rem
+}
+
+.title {
+    text-transform: uppercase;
+}
+
+.by {
+    font-weight: 600;
+}
