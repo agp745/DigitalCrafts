@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <a href="/movies/create">Add a movie</a>
+    <a href="/movies">show all movies</a>
+    <br>
+    <section>
+        {{#arr}}
+        <form action="/movies/delete" method="POST">
+            <div class="movieCard">
+                <h1>{{title}}</h1>
+                <p>{{description}}</p>
+                <p>{{genre}}</p>
+                <img src="{{posterURL}}">
+                <p>{{id}}</p>
+                <input type="hidden" value={{id}} name="id">
+                <button>Delete</button>
+            </div>
+        </form>
+        <form action="/movies/{{id}}" method="GET">
+            <button>Show Details</button>
+        </form>
+        <form action="/movies/genre/{{genre}}" method="GET">
+            <button>Filter Movies with this Genre</button>
+        </form>
+        {{/arr}}
+    </section>
+
+</body>
+</html>
