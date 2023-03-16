@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trips App</title>
+</head>
+<body>
+{{#userInfo}}
+    <h1>Welcome, {{username}}</h1>
+{{/userInfo}}
+
+    <section>
+        <form action="/signout" method="post">
+            <button>signout</button>
+        </form>
+        <a href="/trips/addTrip">Add a Trip</a>
+    </section>
+
+{{#trips}}
+    <section>
+    <form action="/trips/deleteTrip" method="POST">
+        <div>{{destination}}</div>
+        <div>{{departure}}</div>
+        <div>{{arrive}}</div>
+        <div>{{imageURL}}</div>
+        <input type="hidden" value={{id}} name="id">
+        <button>Delete</button>
+    </form>
+    <section>
+{{/trips}}
+</body>
+</html>
