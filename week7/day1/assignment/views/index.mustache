@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+    <h1>Blog Feed</h1>
+    <b>Welcome, {{user}}</b>
+    <form action="/sign-out" method="post">
+        <button>Sign Out</button>
+    </form>
+    <a href="posts/add-post">Add a Post</a>
+    <form action="/posts/filter-posts" method="post">
+        <button>View Your Posts</button>
+    </form>
+    <form action="/posts" method="get">
+        <button>View All Posts</button>
+    </form>
+
+    <section>
+        {{#posts}}
+        <form method="post" action="/posts/delete-post">
+        <div>
+            <b>{{title}}</b>
+            <br>
+            <i>Written By: {{author}}</i>
+            <p>{{body}}</p>
+            <i>date published: {{date_created}}</i>
+            <br>
+            <i>date updated: {{date_updated}}</i>
+            <input type="hidden" name="id" value={{post_id}}>
+            <br>
+            <button>Delete Post</button>
+        </div>
+        </form>
+        <form method="post" action="/posts/update-post">
+            <button>update post</button>
+            <input type="hidden" name="id" value={{post_id}}>
+        </form>
+            <div>--------------------------------------------</div>
+        {{/posts}}
+    </section>
+</body>
+</html>
