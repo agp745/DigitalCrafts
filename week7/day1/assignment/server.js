@@ -5,6 +5,7 @@ const session = require('express-session')
 const pgp = require('pg-promise')()
 const connectionString = 'postgres://hsyuafdm:l_rGfVww_4cm-fH_T1dQ1pNjM5wqlVpE@ruby.db.elephantsql.com/hsyuafdm'
 const db = pgp(connectionString)
+const bcrypt = require('bcryptjs')
 
 const PORT = 8080
 
@@ -15,23 +16,12 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-const authenticateUser = async (req, res, next) => {
-    const usersArr = await db.any('SELECT username, password FROM users')
-    const user = usersArr.find((user) => user.username === req.session.username && user.password === req.session.password)
-    if(user) {
-        next()
-    } else {
-        req.session.username = req.session.password = null
-        res.render('login', {err: 'username or password is invalid'})
-    }
-}
-
 app.use(express.urlencoded())
 app.use(session({
     secret:'superSecret',
     saveUninitialized: false
 })) 
-app.use('/posts', authenticateUser, postsRouter)
+app.use('/posts', postsRouter)
 
 global.updateArr = []
 
@@ -43,10 +33,26 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+
+    const user = await db.oneOrNone('SELECT username, password FROM users WHERE username = $1', [req.body.username])
+
+    if(user) {
+        const result = bcrypt.compare(req.body.password, user.password)
+
+        if(result) {
+            if(req.session) {
+                req.session.username = req.body.username
+            }
+            res.redirect('/posts')
+        } else {
+            res.render('login', {err: 'username or password is invalid'})
+        }
+    } else {
+        res.render('login', {err: 'username or password is invalid'})
+    }
+
     req.session.username = req.body.username
-    req.session.password = req.body.password
-    res.redirect('/posts')
 })
 
 app.get('/sign-up', (req, res) => {
@@ -54,17 +60,20 @@ app.get('/sign-up', (req, res) => {
 })
 
 app.post('/sign-up', async(req, res) => {
-    await db.none('INSERT INTO users(username, password) VALUES($1, $2)', [req.body.username, req.body.password])
+    const password = req.body.password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    await db.none('INSERT INTO users(username, password) VALUES($1, $2)', [req.body.username, hashedPassword])
     req.session.username = req.body.username
-    req.session.password = req.body.password
+
     console.log(`New user "${req.session.username}" has been added!`)
     res.redirect('/posts')
 })
 
 app.post('/sign-out', (req, res) => {
     res.render('login', {message: `Successfully signed out as ${req.session.username}!`})
-    req.session.username = req.session.password = null
-    console.log(req.session)
+    req.session.username = null
 })
 
 app.listen(PORT, ()  => {

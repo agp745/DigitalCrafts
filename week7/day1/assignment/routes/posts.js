@@ -51,4 +51,28 @@ router.post('/filter-posts', async(req, res) => {
     res.render('index', {posts: filteredPosts, user: sessionUser})
 })
 
+router.post('/post-details', async (req, res) => {
+    const post = await db.one('SELECT post_id, title, body, author, date_created, date_updated FROM posts WHERE post_id = $1', [req.body.id])
+    const comments = await db.any('SELECT comment, id FROM comments WHERE post_id = $1', [req.body.id])
+    res.render('postDetails', {post: post, comments: comments})
+})
+
+router.post('/add-comment', async (req, res) => {
+
+    await db.none('INSERT INTO comments(comment, post_id) VALUES($1, $2)', [req.body.comment, req.body.id])
+    
+    const comments = await db.any('SELECT comment FROM comments WHERE post_id = $1', [req.body.id])
+    const length = comments.length
+    // res.render('index', {commentLength: `Comments: ${length}`})
+    res.redirect('/posts')
+})
+
+router.post('/delete-comment', async (req, res) => {
+    const id = parseInt(req.body.commentId)
+
+    await db.none('DELETE FROM comments WHERE id = $1', [id])
+    console.log('comment deleted')
+    res.redirect('/posts')
+})
+
 module.exports = router

@@ -22,22 +22,34 @@
 
     <section>
         {{#posts}}
+
         <form method="post" action="/posts/delete-post">
         <div>
             <b>{{title}}</b>
             <br>
             <i>Written By: {{author}}</i>
             <p>{{body}}</p>
-            <i>date published: {{date_created}}</i>
-            <br>
-            <i>date updated: {{date_updated}}</i>
             <input type="hidden" name="id" value={{post_id}}>
-            <br>
+            <div>
+                <p>{{commentLength}}</p>
+            </div>
             <button>Delete Post</button>
         </div>
         </form>
+
+        <form action="/posts/add-comment" method="post">
+            <input type="text" placeholder="enter comment" name="comment">
+            <input type="hidden" name="id" value={{post_id}}>
+            <button>Add Comment</button>
+        </form>
+
         <form method="post" action="/posts/update-post">
             <button>update post</button>
+            <input type="hidden" name="id" value={{post_id}}>
+        </form>
+
+        <form action="/posts/post-details" method="post">
+            <button>View Post Details</button>
             <input type="hidden" name="id" value={{post_id}}>
         </form>
             <div>--------------------------------------------</div>

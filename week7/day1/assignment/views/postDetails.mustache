@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/posts">Return to main page</a>
+    <br>
+    {{#post}}
+    <h1>POST DETAILS</h1>
+    <div>
+        <b>{{title}}</b>
+        <br>
+        <i>Written By: {{author}}</i>
+        <p>{{body}}</p>
+        <i>date published: {{date_created}}</i>
+        <br>
+        <i>date updated: {{date_updated}}</i>
+        <input type="hidden" name="id" value={{post_id}}>
+        <br>
+    </div>
+    {{/post}}
+    <h2>Comments</h2>
+    {{#comments}}
+        <form action="/posts/delete-comment" method="post">
+            <div>{{comment}}</div>
+            <input type="hidden" name="commentId" value={{id}}>
+            <button>delete</button>
+            <div>------------------------------</div>
+        </form>
+    {{/comments}}
+
+</body>
+</html>
