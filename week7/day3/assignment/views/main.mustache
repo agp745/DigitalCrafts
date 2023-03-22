@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home Page</title>
+</head>
+<body>
+    <h1>POSTS</h1>
+    <h2>Welcome, {{user}}</h2>
+    <form action="/posts/add-post" method="get">
+        <button>Add a Post</button>
+    </form>
+
+    <form action="/posts">
+        <button>View All Posts</button>
+    </form>
+
+    <form action="/posts/filter" method="post">
+        <button>Filter Posts by Category</button>
+        <select name="category">
+            <option value="Javascript">Javascript</option>
+            <option value="Python">Python</option>
+            <option value="GOlang">GOlang</option>
+            <option value="Rust">Rust</option>
+        </select>
+    </form>
+
+    <section>
+        {{#posts}}
+        <form action="/posts/delete-post" method="post">
+        <div>
+            <p><b>{{title}}</b></p>
+            <p>{{body}}<p>
+            <p><i>{{category}}</i></p>
+            <input type="hidden" name="id" value={{id}}>
+            <button>Delete Post</button>
+        </div>
+        </form>
+
+        <form action="/posts/update-post-page" method="post">
+            <input type="hidden" value={{id}} name="id">
+            <button>Update Post</button>
+        </form>
+            <div>----------------------------------------------</div>
+        {{/posts}}
+
+    </section>
+
+    <form action="/signout" method="post">
+        <button>Sign Out</button>
+    </form>
+</body>
+</html>
