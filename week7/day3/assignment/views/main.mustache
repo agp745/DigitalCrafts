@@ -17,6 +17,14 @@
         <button>View All Posts</button>
     </form>
 
+    <form action="/posts/user-posts" method="post">
+        <button>View Your Posts</button>
+    </form>
+
+    <form action="/posts/filter-published" method="post">
+        <button>Filter Published Articles</button>
+    </form>
+
     <form action="/posts/filter" method="post">
         <button>Filter Posts by Category</button>
         <select name="category">
@@ -32,6 +40,7 @@
         <form action="/posts/delete-post" method="post">
         <div>
             <p><b>{{title}}</b></p>
+            <p><b>by: {{author}}</b></p>
             <p>{{body}}<p>
             <p><i>{{category}}</i></p>
             <input type="hidden" name="id" value={{id}}>

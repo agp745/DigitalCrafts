@@ -16,7 +16,8 @@ router.post('/add-post', async (req, res) => {
         title: req.body.title,
         body: req.body.body,
         category: req.body.category,
-        isPublished: req.body.isPublished
+        isPublished: req.body.isPublished,
+        author: req.session.user
     })
 
     await newPost.save()
@@ -69,6 +70,30 @@ router.post('/update-post-info', async (req, res) => {
     res.redirect('/posts')
 })
 
+router.post('/user-posts', async (req, res) => {
+    const userPosts = await model.Post.findAll({
+        where: {
+            author: req.session.user
+        }
+    })
+
+    let filteredArr = []
+    for(let i = 0; i < userPosts.length; i++) {
+        const postInfo = {
+            id: userPosts[i].dataValues.id,
+            title: userPosts[i].dataValues.title,
+            author: userPosts[i].dataValues.author,
+            body: userPosts[i].dataValues.body,
+            category: userPosts[i].dataValues.category
+        }
+        filteredArr.push(postInfo)
+    }
+
+    res.render('main', {posts: filteredArr})
+
+
+})
+
 router.post('/filter', async (req, res) => {
     const filteredPosts = await model.Post.findAll({
         where: {
@@ -81,6 +106,29 @@ router.post('/filter', async (req, res) => {
         const postInfo = {
             id: filteredPosts[i].dataValues.id,
             title: filteredPosts[i].dataValues.title,
+            author: filteredPosts[i].dataValues.author,
+            body: filteredPosts[i].dataValues.body,
+            category: filteredPosts[i].dataValues.category
+        }
+        filteredArr.push(postInfo)
+    }
+
+    res.render('main', {posts: filteredArr})
+})
+
+router.post('/filter-published', async (req, res) => {
+    const filteredPosts = await model.Post.findAll({
+        where: {
+            isPublished: true
+        }
+    })
+
+    let filteredArr = []
+    for(let i = 0; i < filteredPosts.length; i++) {
+        const postInfo = {
+            id: filteredPosts[i].dataValues.id,
+            title: filteredPosts[i].dataValues.title,
+            author: filteredPosts[i].dataValues.author,
             body: filteredPosts[i].dataValues.body,
             category: filteredPosts[i].dataValues.category
         }

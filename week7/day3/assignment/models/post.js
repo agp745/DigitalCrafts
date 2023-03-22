@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     body: DataTypes.STRING,
     category: DataTypes.STRING,
-    isPublished: DataTypes.BOOLEAN
+    isPublished: DataTypes.BOOLEAN,
+    author: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
