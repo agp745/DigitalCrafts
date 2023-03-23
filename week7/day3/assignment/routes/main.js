@@ -1,141 +1,175 @@
-const express = require('express')
-const router = express()
+const express = require("express");
+const router = express();
 
-router.get('/', async (req, res) => {
-    const posts = await model.Post.findAll({})
-    
-    res.render('main', {posts: posts, user: req.session.user})
-})
+router.get("/", async (req, res) => {
+  const posts = await model.Post.findAll({});
 
-router.get('/add-post', async (req, res) => {
-    res.render('addPost')
-})
+  res.render("main", { posts: posts, user: req.session.user });
+});
 
-router.post('/add-post', async (req, res) => {
-    const newPost = await model.Post.build({
-        title: req.body.title,
-        body: req.body.body,
-        category: req.body.category,
-        isPublished: req.body.isPublished,
-        author: req.session.user
-    })
+router.get("/add-post", async (req, res) => {
+  res.render("addPost");
+});
 
-    await newPost.save()
-    console.log('movie added')
-    res.redirect('/posts')
-})
+router.post("/add-post", async (req, res) => {
+  const newPost = await model.Post.build({
+    title: req.body.title,
+    body: req.body.body,
+    category: req.body.category,
+    isPublished: req.body.isPublished,
+    author: req.session.user,
+  });
 
-router.post('/delete-post', async (req, res) => {
-    await model.Post.destroy({
-        where: {
-            id: parseInt(req.body.id)
-        }
-    })
-    
-    console.log('post deleted')
-    res.redirect('/posts')
-})
+  await newPost.save();
+  console.log("movie added");
+  res.redirect("/posts");
+});
 
-router.post('/update-post-page', async (req, res) => {
+router.post("/delete-post", async (req, res) => {
+  await model.Post.destroy({
+    where: {
+      id: parseInt(req.body.id),
+    },
+  });
 
-    const post = await model.Post.findAll({
-        where: {
-            id: parseInt(req.body.id)
-        }
-    })
+  console.log("post deleted");
+  res.redirect("/posts");
+});
 
+router.post("/update-post-page", async (req, res) => {
+  const post = await model.Post.findAll({
+    where: {
+      id: parseInt(req.body.id),
+    },
+  });
+
+  const postInfo = {
+    id: post[0].dataValues.id,
+    title: post[0].dataValues.title,
+    body: post[0].dataValues.body,
+    category: post[0].dataValues.category,
+  };
+
+  res.render("updatePost", postInfo);
+});
+
+router.post("/update-post-info", async (req, res) => {
+  await model.Post.update(
+    {
+      title: req.body.title,
+      body: req.body.body,
+      category: req.body.category,
+      isPublished: req.body.isPublished,
+    },
+    {
+      where: {
+        id: parseInt(req.body.id),
+      },
+    }
+  );
+
+  console.log("post updated");
+  res.redirect("/posts");
+});
+
+router.post("/user-posts", async (req, res) => {
+  const userPosts = await model.Post.findAll({
+    where: {
+      author: req.session.user,
+    },
+  });
+
+  let filteredArr = [];
+  for (let i = 0; i < userPosts.length; i++) {
     const postInfo = {
-        id: post[0].dataValues.id,
-        title: post[0].dataValues.title,
-        body: post[0].dataValues.body,
-        category: post[0].dataValues.category
-    }
+      id: userPosts[i].dataValues.id,
+      title: userPosts[i].dataValues.title,
+      author: userPosts[i].dataValues.author,
+      body: userPosts[i].dataValues.body,
+      category: userPosts[i].dataValues.category,
+    };
+    filteredArr.push(postInfo);
+  }
 
-    res.render('updatePost', postInfo)
-})
+  res.render("main", { posts: filteredArr });
+});
 
-router.post('/update-post-info', async (req, res) => {
-    await model.Post.update({
-        title: req.body.title, 
-        body: req.body.body, 
-        category: req.body.category,
-        isPublished: req.body.isPublished
-    }, {
-        where: {
-            id: parseInt(req.body.id)
-        }
-    })
+router.post("/filter", async (req, res) => {
+  const filteredPosts = await model.Post.findAll({
+    where: {
+      category: req.body.category,
+    },
+  });
 
-    console.log('post updated')
-    res.redirect('/posts')
-})
+  let filteredArr = [];
+  for (let i = 0; i < filteredPosts.length; i++) {
+    const postInfo = {
+      id: filteredPosts[i].dataValues.id,
+      title: filteredPosts[i].dataValues.title,
+      author: filteredPosts[i].dataValues.author,
+      body: filteredPosts[i].dataValues.body,
+      category: filteredPosts[i].dataValues.category,
+    };
+    filteredArr.push(postInfo);
+  }
 
-router.post('/user-posts', async (req, res) => {
-    const userPosts = await model.Post.findAll({
-        where: {
-            author: req.session.user
-        }
-    })
+  res.render("main", { posts: filteredArr });
+});
 
-    let filteredArr = []
-    for(let i = 0; i < userPosts.length; i++) {
-        const postInfo = {
-            id: userPosts[i].dataValues.id,
-            title: userPosts[i].dataValues.title,
-            author: userPosts[i].dataValues.author,
-            body: userPosts[i].dataValues.body,
-            category: userPosts[i].dataValues.category
-        }
-        filteredArr.push(postInfo)
-    }
+router.post("/filter-published", async (req, res) => {
+  const filteredPosts = await model.Post.findAll({
+    where: {
+      isPublished: true,
+    },
+  });
 
-    res.render('main', {posts: filteredArr})
+  let filteredArr = [];
+  for (let i = 0; i < filteredPosts.length; i++) {
+    const postInfo = {
+      id: filteredPosts[i].dataValues.id,
+      title: filteredPosts[i].dataValues.title,
+      author: filteredPosts[i].dataValues.author,
+      body: filteredPosts[i].dataValues.body,
+      category: filteredPosts[i].dataValues.category,
+    };
+    filteredArr.push(postInfo);
+  }
 
+  res.render("main", { posts: filteredArr });
+});
 
-})
+router.post("/comment", async (req, res) => {
+  const comment = await model.Comment.build({
+    title: req.body.title,
+    body: req.body.comment,
+    post_id: req.body.post_id,
+  });
 
-router.post('/filter', async (req, res) => {
-    const filteredPosts = await model.Post.findAll({
-        where: {
-            category: req.body.category
-        }
-    })
+  await comment.save();
 
-    let filteredArr = []
-    for(let i = 0; i < filteredPosts.length; i++) {
-        const postInfo = {
-            id: filteredPosts[i].dataValues.id,
-            title: filteredPosts[i].dataValues.title,
-            author: filteredPosts[i].dataValues.author,
-            body: filteredPosts[i].dataValues.body,
-            category: filteredPosts[i].dataValues.category
-        }
-        filteredArr.push(postInfo)
-    }
+  res.redirect("/posts");
+});
 
-    res.render('main', {posts: filteredArr})
-})
+router.post("/post-details", async (req, res) => {
+  const id = parseInt(req.body.id);
+  const comment = await model.Post.findByPk(id, {
+    include: [{ model: model.Comment, as: "comments" }],
+  });
 
-router.post('/filter-published', async (req, res) => {
-    const filteredPosts = await model.Post.findAll({
-        where: {
-            isPublished: true
-        }
-    })
+  console.log(comment);
 
-    let filteredArr = []
-    for(let i = 0; i < filteredPosts.length; i++) {
-        const postInfo = {
-            id: filteredPosts[i].dataValues.id,
-            title: filteredPosts[i].dataValues.title,
-            author: filteredPosts[i].dataValues.author,
-            body: filteredPosts[i].dataValues.body,
-            category: filteredPosts[i].dataValues.category
-        }
-        filteredArr.push(postInfo)
-    }
+  res.render("postDetails", comment.dataValues);
+});
 
-    res.render('main', {posts: filteredArr})
-})
+router.post("/delete-comment", async (req, res) => {
+  await model.Comment.destroy({
+    where: {
+      id: req.body.id,
+    },
+  });
 
-module.exports = router
+  console.log("comment deleted");
+  res.redirect("/posts");
+});
+
+module.exports = router;

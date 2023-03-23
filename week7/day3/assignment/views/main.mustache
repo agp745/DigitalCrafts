@@ -52,6 +52,18 @@
             <input type="hidden" value={{id}} name="id">
             <button>Update Post</button>
         </form>
+
+        <form action="/posts/comment" method="post">
+            <input type="text" placeholder="enter title" name="title">
+            <input type="text" placeholder="enter comment" name="comment">
+            <input type="hidden" name="post_id" value={{id}}>
+            <button>Comment</button>
+        </form>
+
+        <form action="/posts/post-details" method="post">
+            <input type="hidden" name="id" value={{id}}>
+            <button>Show Post Details</button>
+        </form>
             <div>----------------------------------------------</div>
         {{/posts}}
 
