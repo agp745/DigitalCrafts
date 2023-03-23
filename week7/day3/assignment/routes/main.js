@@ -2,9 +2,17 @@ const express = require("express");
 const router = express();
 
 router.get("/", async (req, res) => {
-  const posts = await model.Post.findAll({});
+  const posts = await model.Post.findAll({
+    include: {
+      model: model.Comment,
+      as: "comments",
+    },
+  });
 
-  res.render("main", { posts: posts, user: req.session.user });
+  res.render("main", {
+    posts: posts,
+    user: req.session.user,
+  });
 });
 
 router.get("/add-post", async (req, res) => {
