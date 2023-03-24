@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express();
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
   const posts = await model.Post.findAll({
@@ -144,6 +145,55 @@ router.post("/filter-published", async (req, res) => {
   }
 
   res.render("main", { posts: filteredArr });
+});
+
+router.post("/filterDate", async (req, res) => {
+  if (req.body.filterDate === "recent") {
+    const posts = await model.Post.findAll({
+      include: {
+        model: model.Comment,
+        as: "comments",
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    res.render("main", {
+      posts: posts,
+      user: req.session.user,
+    });
+  } else if (req.body.filterDate === "oldest") {
+    const posts = await model.Post.findAll({
+      include: {
+        model: model.Comment,
+        as: "comments",
+      },
+      order: [["createdAt", "ASC"]],
+    });
+
+    res.render("main", {
+      posts: posts,
+      user: req.session.user,
+    });
+  } else {
+    console.log("/");
+  }
+});
+
+router.post("/filterKeyword", async (req, res) => {
+  const posts = await model.Post.findAll({
+    include: {
+      model: model.Comment,
+      as: "comments",
+    },
+    where: {
+      title: {
+        [Op.iLike]: req.body.keyword,
+      },
+    },
+  });
+  res.render("main", {
+    posts: posts,
+    user: req.session.user,
+  });
 });
 
 router.post("/comment", async (req, res) => {

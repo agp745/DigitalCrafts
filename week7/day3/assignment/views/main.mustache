@@ -35,6 +35,19 @@
         </select>
     </form>
 
+    <form action="/posts/filterDate" method="post">
+        <button>Sort by date</button>
+        <select name="filterDate">
+            <option value="recent">Most Recent First</option>
+            <option value="oldest">Oldest First</option>
+        </select>
+    </form>
+
+    <form action="/posts/filterKeyword" method="post">
+        <button>Search by Keyword</button>
+        <input type="text" placeholder="search" name="keyword">
+    </form>
+
     <section>
         {{#posts}}
         <form action="/posts/delete-post" method="post">
