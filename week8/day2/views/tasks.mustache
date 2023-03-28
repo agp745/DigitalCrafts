@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Your Tasks</h1>
+    <a href="/">add task</a>
+    <section>
+        {{#tasks}}
+            <form action="/delete" method="post">
+            <div>
+            {{taskName}} - {{taskPriority}}
+            <p>{{completedDate}}</p>
+            <input type="hidden" name="id" value={{_id}}>
+            </div>
+            <button>Delete</button>
+            </form>
+
+            <form action="update" method="post">
+                <input type="hidden" name="id" value={{_id}}>
+                <button>Update Post</button>
+            </form>
+            <div>--------------------------------------</div>
+        {{/tasks}}
+    </section>
+</body>
+</html>
