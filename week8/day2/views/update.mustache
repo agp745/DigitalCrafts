@@ -12,7 +12,7 @@
     <form action="/send-update" method="post">
         <input type="text" name="taskName" value="{{taskName}}">
         <input type="text" name="taskPriority" value="{{taskPriority}}">
-        <input type="date" name="completedDate" value="{{completedDate}}">
+        <input type="date" name="completedDate" value={{completedDate}}>
         <input type="hidden" name="id" value={{_id}}>
         <button>Update</button>
     </form>
