@@ -1,0 +1,19 @@
+.list{
+    display: flex;
+    overflow-x: scroll;
+    gap: 2rem;
+    background-color: aquamarine;
+}
+
+.list p {
+    font-style: italic;
+}
+
+.title {
+    font-weight: bold;
+}
+
+img {
+    width: 10rem;
+    height: 14rem
+}
