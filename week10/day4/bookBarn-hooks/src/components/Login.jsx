@@ -1,7 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import App from "./App"
 
-function Login() {
+function Login(props) {
     const navigate = useNavigate()
 
     const [credentials, setCredentials] = useState({
@@ -27,6 +28,8 @@ function Login() {
         })
         .then(res => res.json())
         console.log(response)
+
+        props.handleAuth(true)
 
         navigate('/')
     }

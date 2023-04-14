@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useContext } from "react"
 
 function Signup() {
     const navigate = useNavigate()
@@ -27,7 +27,7 @@ function Signup() {
         })
         .then(res => res.json())
         console.log(response)
-
+ 
         navigate('/')
     }
 

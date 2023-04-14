@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Header from "./Header"
 
 function AddBook() {
     const navigate = useNavigate()
@@ -36,6 +37,7 @@ function AddBook() {
 
     return(
         <>
+            <Header />
             <input type="text" placeholder="title" name="title" onChange={captureInput}/>
             <input type="text" placeholder="genre" name="genre" onChange={captureInput}/>
             <input type="text" placeholder="publisher" name="publisher" onChange={captureInput}/>
