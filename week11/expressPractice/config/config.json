@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "sfjojetx",
+    "password": "krK5Bxs_8vCnPaswiS2-33uz7Bo8cFTf",
+    "database": "sfjojetx",
+    "host": "lallah.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}
