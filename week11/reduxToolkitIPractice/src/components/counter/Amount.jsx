@@ -1,3 +1,4 @@
+
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { add, subtract, asyncAdd, asyncSubtract } from "./counterSlice";
@@ -18,3 +19,4 @@ export default function Amount() {
         </>
     )
 }
+
