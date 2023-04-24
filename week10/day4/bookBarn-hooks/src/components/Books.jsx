@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { addToCart } from "../store/cartSlice"
+import { useDispatch } from "react-redux"
 
 function Books(books) {
 
-    // const [booksArr, setBooksArr] = useState(books.books)
+    const dispatch = useDispatch()
+
     const booksArr = books.books
     const list = booksArr.map((book) => {
         return (
@@ -12,6 +14,7 @@ function Books(books) {
                 <div>{book.genre}</div>
                 <div><i>{book.year}</i></div>
                 <button onClick={() => deleteBook(book.id)}>Delete</button>
+                <button onClick={() => dispatch(addToCart(book.title))}>Add To Cart</button>
             </div>
         )
     })

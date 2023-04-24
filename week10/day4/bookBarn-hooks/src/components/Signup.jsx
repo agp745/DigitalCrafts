@@ -1,8 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { signup } from "../store/authSlice"
 
 function Signup() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [credentials, setCredentials] = useState({
         username: "",
@@ -27,6 +30,8 @@ function Signup() {
         })
         .then(res => res.json())
         console.log(response)
+
+        dispatch(signup())
  
         navigate('/')
     }
