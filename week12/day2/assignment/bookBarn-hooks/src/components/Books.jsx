@@ -1,6 +1,7 @@
 import { addToCart } from "../store/cartSlice"
 import { addFavorite, removeFavorite } from "../store/favoriteSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 function Books(books) {
 
@@ -16,6 +17,9 @@ function Books(books) {
                 <div>{book.genre}</div>
                 <div><i>{book.year}</i></div>
                 <button onClick={() => deleteBook(book.id)}>Delete</button>
+                <Link to={`/update/${book.id}`}>
+                    <button>Update</button>
+                </Link>
                 <button onClick={() => dispatch(addToCart(book.title))}>Add To Cart</button>
                 {!favorites.includes(book) && (
                     <button onClick={() => dispatch(addFavorite(book))}>Add Favorite</button>

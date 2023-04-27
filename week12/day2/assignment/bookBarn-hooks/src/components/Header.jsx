@@ -14,7 +14,7 @@ function Header() {
             <NavLink to="/add-book">Add Book</NavLink>
             <NavLink to="/favorites">Favorites</NavLink>
             {auth.isAuth && (
-                <NavLink onClick={() => dispatch(signout())}>Sign Out</NavLink>
+                <a onClick={() => dispatch(signout())}>Sign Out</a>
             )}
             {!auth.isAuth && (
                 <NavLink to="/login">Login</NavLink>

@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Routes, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Routes, Route } from 'react-router-dom'
 import '../css/App.css'
 import Books from './Books'
 import Header from './Header'
-import Login from './Login'
-import Signup from './Signup'
-import Favorites from './Favorites'
+import { useDispatch } from 'react-redux'
+import { addBooks } from '../store/booksSlice'
 
 function App() {
-  const navigate = useNavigate()
 
   const [books, setBooks] = useState([])
-
-  const state = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchBooks()
@@ -25,17 +21,13 @@ function App() {
 
     console.log(response)
     setBooks(response)
+    dispatch(addBooks(response))
   }
 
   return (
     <div className="App">
       <Header />
-        <Routes>
-          <Route path="/" element={<Books books={books}/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/favorites" element={<Favorites />}></Route>
-        </Routes>
+      <Books books={books} />
     </div>
   )
 }
