@@ -1,33 +1,29 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 import '../css/App.css'
 import Books from './Books'
 import Header from './Header'
-import { useDispatch } from 'react-redux'
-import { addBooks } from '../store/booksSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { addBooks, fetchBooks } from '../store/booksSlice'
 
 function App() {
 
-  const [books, setBooks] = useState([])
+  const { books, isLoading } = useSelector((state) => state.books)
   const dispatch = useDispatch()
+  console.log(books)
 
   useEffect(() => {
-    fetchBooks()
+    dispatch(fetchBooks())
   }, [])
-
-  const fetchBooks = async() => {
-    const response = await fetch('http://localhost:8080/api/books')
-    .then(res => res.json())
-
-    console.log(response)
-    setBooks(response)
-    dispatch(addBooks(response))
-  }
 
   return (
     <div className="App">
       <Header />
-      <Books books={books} />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Books books={books} />
+        // <div>swag</div>
+      )}
     </div>
   )
 }

@@ -3,12 +3,12 @@ import { addFavorite, removeFavorite } from "../store/favoriteSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
-function Books(books) {
+function Books(prop) {
 
     const dispatch = useDispatch()
     const favorites = useSelector(state => state.favorites.favorites)
-
-    const booksArr = books.books
+    
+    const booksArr = prop.books
     const list = booksArr.map((book) => {
         return (
             <div key={book.id}>
@@ -27,7 +27,7 @@ function Books(books) {
                 {favorites.includes(book) && (
                     <button onClick={() => dispatch(removeFavorite(book))}>Remove Favorite</button>
                 )}
-            </div>
+            </div> 
         )
     })
 
