@@ -1,6 +1,7 @@
 const exrpess = require('express')
 const router = exrpess.Router()
 const models = require('../models')
+const authenticate = require('../middleware/authMW')
 
 router.get("/api/books", async (req, res) => {
     const books = await models.Book.findAll({})
@@ -23,14 +24,14 @@ router.post("/api/books", async (req, res) => {
     res.json({"success": "book added"})
 })
 
-router.post('/api/delete/:id', async (req, res) => {
+router.post('/api/delete/:id', authenticate, async (req, res) => {
     await models.Book.destroy({
         where: {
             id: req.params.id
         }
     })
 
-    res.json({"success": "book deleted"})
+    res.json({success: "book deleted"})
 })
 
 router.get('/api/update/:id', async (req, res) => {

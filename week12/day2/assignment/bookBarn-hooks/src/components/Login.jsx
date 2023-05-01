@@ -10,7 +10,7 @@ function Login() {
     const state = useSelector((state) => state.auth)
 
     const [credentials, setCredentials] = useState({
-        username: "",
+        username_email: "",
         password: "",
     })
 
@@ -33,11 +33,12 @@ function Login() {
             })
             .then(res => res.json())
             
-            if(JSON.stringify(response) === JSON.stringify({success: "user logged in"})) {
+            if(response.success) {
+                localStorage.setItem('token', response.token)
                 dispatch(login())
                 navigate('/')
             } else {
-                console.log('err')
+                console.log('error validating login response')
             }
         }
         catch (e) {
@@ -49,7 +50,7 @@ function Login() {
     return(
         <>
             <h1>Login</h1>
-            <input type="text" placeholder="username" name="username" onChange={handleLoginInputs}/>
+            <input type="text" placeholder="username or email" name="username_email" onChange={handleLoginInputs}/>
             <input type="text" placeholder="password" name="password" onChange={handleLoginInputs}/>
             <button onClick={handleLogin}>Login</button>
             <div><NavLink to="/signup">Sign Up</NavLink></div>
