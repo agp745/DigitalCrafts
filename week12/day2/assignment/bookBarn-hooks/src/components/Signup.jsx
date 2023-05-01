@@ -9,6 +9,7 @@ function Signup() {
 
     const [credentials, setCredentials] = useState({
         username: "",
+        email: "",
         password: ""
     })
 
@@ -30,9 +31,9 @@ function Signup() {
         })
         .then(res => res.json())
         console.log(response)
+        localStorage.setItem('token', response.token)
 
         dispatch(signup())
- 
         navigate('/')
     }
 
@@ -40,6 +41,7 @@ function Signup() {
         <>
             <h1>Signup</h1>
             <input type="text" placeholder="username" name="username" onChange={handelSignupInput} />
+            <input type="text" placeholder="email" name="email" onChange={handelSignupInput} />
             <input type="text" placeholder="password" name="password" onChange={handelSignupInput} />
             <button onClick={handelSignup}>Signup</button>
             <div><NavLink to="/login">Log In</NavLink></div>

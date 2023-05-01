@@ -24,15 +24,6 @@ router.post("/api/books", async (req, res) => {
     res.json({"success": "book added"})
 })
 
-// router.post('/api/delete/:id', async (req, res) => {
-//     await models.Book.destroy({
-//         where: {
-//             id: req.params.id
-//         }
-//     })
-
-//     res.json({"success": "book deleted"})
-// })
 router.post('/api/delete/:id', authenticate, async (req, res) => {
     await models.Book.destroy({
         where: {
