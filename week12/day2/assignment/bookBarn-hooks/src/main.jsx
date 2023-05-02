@@ -11,6 +11,7 @@ import { store } from './store/store'
 import { Provider } from 'react-redux'
 import Favorites from './components/Favorites'
 import Update from './components/Update'
+import Profile from './components/Profile'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/update/:id" element={<Update />} />
             <Route path="/add-book" element={<AddBook />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BaseLayout>
       </Provider>

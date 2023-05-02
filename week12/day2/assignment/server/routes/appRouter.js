@@ -2,6 +2,8 @@ const exrpess = require('express')
 const router = exrpess.Router()
 const models = require('../models')
 const authenticate = require('../middleware/authMW')
+const jwt = require('jsonwebtoken')
+const { Op } = require('sequelize')
 
 router.get("/api/books", async (req, res) => {
     const books = await models.Book.findAll({})
@@ -58,6 +60,42 @@ router.post('/api/update/:id', async (req, res) => {
     })
 
     res.json({"message": "book updated successfully"})
+})
+
+router.get('/api/current_user/:token', async(req, res) => {
+    const username_email = jwt.decode(req.params.token, 'secret_key')
+
+    if(username_email) {
+        try{
+            const user = await models.User.findOne({
+                where: {
+                    [Op.or]:
+                        [{username: username_email}, {email: username_email}]
+                }
+            })
+            if(user) {
+                res.json({success: true, user: user.dataValues})
+            } else {
+                res.json({success: false, error: 'error fetching user from database'})
+            }
+
+        } catch(e) {
+            throw new Error(e)
+        }
+    } else {
+        res.status(401).json({success: false, error: 'invalid token'})
+    }
+})
+
+router.post('/api/current_user/update_email', async (req, res) => {
+    
+    await models.User.update({email: req.body.email}, {
+        where: {
+            id: Number(req.body.id)
+        }
+    })
+
+    res.json({success: true, message: 'Email Updated!'})
 })
 
 module.exports = router

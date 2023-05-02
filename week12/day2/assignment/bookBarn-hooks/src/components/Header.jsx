@@ -15,7 +15,10 @@ function Header() {
             <NavLink to="/add-book">Add Book</NavLink>
             <NavLink to="/favorites">Favorites</NavLink>
             {auth.token && (
+                <>
                 <a onClick={() => dispatch(signout())}>Sign Out</a>
+                <NavLink to="/profile">Profile</NavLink>
+                </>
             )}
             {!auth.token && (
                 <NavLink to="/login">Login</NavLink>
