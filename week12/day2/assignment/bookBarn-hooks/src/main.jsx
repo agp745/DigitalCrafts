@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import Favorites from './components/Favorites'
 import Update from './components/Update'
 import Profile from './components/Profile'
+import ProtectedRoute from './ProtectedRoute'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -21,10 +22,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/login" element={<Login props="hello"/>} />
             <Route path="/signup" element={<Signup props="hello"/>} />
-            <Route path="/" element={<App />} />
+            <Route path="/" element={<ProtectedRoute><App /></ProtectedRoute>} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/update/:id" element={<Update />} />
-            <Route path="/add-book" element={<AddBook />} />
+            <Route path="/add-book" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </BaseLayout>
