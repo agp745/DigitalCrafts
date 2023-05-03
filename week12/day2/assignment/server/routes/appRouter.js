@@ -4,6 +4,7 @@ const models = require('../models')
 const authenticate = require('../middleware/authMW')
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
+require('dotenv').config()
 
 router.get("/api/books", async (req, res) => {
     const books = await models.Book.findAll({})
@@ -63,7 +64,7 @@ router.post('/api/update/:id', async (req, res) => {
 })
 
 router.get('/api/current_user/:token', async(req, res) => {
-    const username_email = jwt.decode(req.params.token, 'secret_key')
+    const username_email = jwt.decode(req.params.token, process.env.SECRET_KEY)
 
     if(username_email) {
         try{

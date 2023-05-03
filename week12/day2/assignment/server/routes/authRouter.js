@@ -5,6 +5,7 @@ const models = require('../models')
 const bcrypt = require('bcryptjs')
 const { Op } = require("sequelize")
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 
 router.post("/auth/signup", async (req, res) => {
@@ -21,7 +22,7 @@ router.post("/auth/signup", async (req, res) => {
     })
     await newUser.save()
 
-    const token = jwt.sign(username || email, 'secret_key')
+    const token = jwt.sign(username || email, process.env.SECRET_KEY)
     console.log(token)
 
     // res.json({success: "user created"})
@@ -43,7 +44,7 @@ router.post("/auth/login", async (req, res) => {
         const result = await bcrypt.compare(password, user.dataValues.password)
         console.log(result)
         if(result) {
-            const token = jwt.sign(user.dataValues.username, 'secret_key')
+            const token = jwt.sign(user.dataValues.username, process.env.SECRET_KEY)
 
             res.status(200).json({success: true, token: token})
             // res.status(200).json({success: "user logged in"})
