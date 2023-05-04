@@ -17,10 +17,10 @@ export default function Counter() {
             <button onClick={() => dispatch(increment())}>+1</button>
             <br />
             <input type="number" value={value} onChange={e => setValue(e.target.value)} />
-            <button onClick={() => dispatch(incrementByAmount(value))}>increase</button>
             <button onClick={() => dispatch(decrementByAmount(value))}>decrease</button>
-            <button onClick={() => dispatch(asyncIncrement(value))}>Async Increase</button>
+            <button onClick={() => dispatch(incrementByAmount(value))}>increase</button>
             <button onClick={() => dispatch(asyncDecrement(value))}>Async Decrease</button>
+            <button onClick={() => dispatch(asyncIncrement(value))}>Async Increase</button>
         </>
     )
 }
